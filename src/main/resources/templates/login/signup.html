@@ -9,72 +9,50 @@
 <title>SignUp</title>
 </head>
 <body>
-	<div class="col-sm-5">
+	<div class="containner">
 		<div class="page-header">
 			<h1>ユーザー登録画面</h1>
 		</div>
-		<form th:action="@{/signup}" method="post">
-			<table class="table table-bordered table-hover">
-				<!--  ユーザID入力エリア-->
-				<tr>
-					<th class="table-active col-sm-3">ユーザID</th>
-					<td>
-						<div class="form-group">
-							<input type="text" class="form-control">
-						</div>
-					</td>
-				</tr>
-				<!--  パスワード入力エリア-->
-				<tr>
-					<th class="table-active">パスワード</th>
-					<td>
-						<div class="form-group">
-							<input type="text" class="form-control">
-						</div>
-					</td>
-				</tr>
-				<!--  ユーザ名入力エリア-->
-				<tr>
-					<th class="table-active">ユーザ名</th>
-					<td>
-						<div class="form-group">
-							<input type="text" class="form-control">
-						</div>
-					</td>
-				</tr>
-				<!--  誕生日入力エリア-->
-				<tr>
-					<th class="table-active">誕生日</th>
-					<td>
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="yyyy/MM/dd">
-						</div>
-					</td>
-				</tr>
-				<!--  年齢入力エリア-->
-				<tr>
-					<th class="table-active">年齢</th>
-					<td>
-						<div class="form-group">
-							<input type="text" class="form-control">
-						</div>
-					</td>
-				</tr>
-				<!--  結婚ステータス入力エリア-->
-				<tr>
-					<th class="table-active">結婚</th>
-					<td>
-						<div class="form-group">
+		<form th:action="@{/signup}" method="post" th:0bject="${signupForm}">
 
+				<!--  ユーザID入力エリア-->
+						<div class="form-group">
+							<label for="id">ユーザID</label>
+							<input type="text" class="form-control" th:filed="*{userId}">
+						</div>
+
+				<!--  パスワード入力エリア-->
+						<div class="form-group">
+							<label for="password">パスワード</label>
+							<input type="text" class="form-control" th:filed="*{password}">
+						</div>
+				<!--  ユーザ名入力エリア-->
+						<div class="form-group">
+						<label for="name">ユーザ名</label>
+							<input type="text" class="form-control" th:filed="*{userName}">
+						</div>
+				<!--  誕生日入力エリア-->
+						<div class="form-group">
+							<label for="birthday">誕生日</label>
+							<input type="text" class="form-control" placeholder="yyyy/MM/dd" th:filed="*{birthday}">
+						</div>
+				<!--  年齢入力エリア-->
+						<div class="form-group">
+						<label for="age">年齢</label>
+							<input type="text" class="form-control" th:filed="*{age}">
+						</div>
+				<!--  結婚ステータス入力エリア-->
+						<div class="form-group">
+							<label for="marriage">結婚</label>
 							<div th:each="item: ${radioMarriage}">
 								<input type="radio" name="radioMarrige"
-								th:text="${item.key}" th:value="${item.value}">
+								th:text="${item.key}" th:value="${item.value}" th:filed="*{marriage}">
 							</div>
 						</div>
-					</td>
-				</tr>
-			</table>
 			<!-- ユーザ登録ボタン -->
+			<ul th:each="error :${#fields.detailesErrors()}">
+				<li th:text="${error.message}">Error Message</li>
+			</ul>
 			<button class="btn btn-primary" type="submit">ユーザ登録</button>
 		</form>
 	</div>
