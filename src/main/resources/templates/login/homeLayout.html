@@ -11,10 +11,10 @@
 
 <title>Home</title>
 </head>
-<body>
+<body class="container">
 <!-- ヘッダー -->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
+	<header class="bg-secondary">
+		<div class="container d-flex justify-content-between">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">SpringSample</a>
 			</div>
@@ -22,27 +22,22 @@
 				<button class="btn btn-link pull-right navbar-brand" type="submit">ログアウト</button>
 			</form>
 		</div>
-	</nav>
+	</header>
 <!-- サイドバー -->
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
-			<div class="col-sm-2 sidebar">
-				<ul class="nav nav-pills nav-stacked">
+			<div class="col-2 ">
+				<ul class="sidebar">
 					<li role="presentation">
 						<a th:href="@{'/userList'}">ユーザー管理</a>
 					</li>
 				</ul>
 			</div>
-		</div>
-	</div>
-<!-- コンテンツ -->
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-10 col-sm-offset-2 main">
+			<!-- コンテンツ -->
+			<div class="col-10 main">
 				<div th:include="__${contents}__"></div>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
