@@ -1,4 +1,4 @@
-package com.example.demo.login;
+package com.example.demo.login.controller;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.login.model.GroupOrder;
-import com.example.demo.login.model.SignupForm;
+import com.example.demo.login.domain.GroupOrder;
+import com.example.demo.login.domain.SignupForm;
 
 @Controller
 public class SignupController {
