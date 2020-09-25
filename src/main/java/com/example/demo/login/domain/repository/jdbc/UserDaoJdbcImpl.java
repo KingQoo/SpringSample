@@ -11,8 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domain.model.User;
+import com.example.demo.login.domain.repository.UserDao;
 
-@Repository
+@Repository("UserDaoJdbcImpl")
 public class UserDaoJdbcImpl implements UserDao {
 
 	@Autowired
@@ -101,19 +102,45 @@ public class UserDaoJdbcImpl implements UserDao {
 
 	@Override
 	public int updateOne(User user) throws DataAccessException {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+
+		int rowNumber = jdbc.update("UPDATE M_USER"
+				+ " SET"
+				+ " password = ?"
+				+ " user_name = ?"
+				+ " birthday = ?"
+				+ " age = ?"
+				+ " marriag = ?"
+				+ " WHERE user_id = ?"
+				,user.getPassword()
+				,user.getUserName()
+				,user.getBirthday()
+				,user.getAge()
+				,user.isMarriage()
+				,user.getUserId());
+
+//		if(rowNumber > 0) {
+//			throw new DataAccessException("トランザクションテスト") {};
+//		}
+
+		return rowNumber;
+
 	}
 
 	@Override
 	public int deleteOne(String userId) throws DataAccessException {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+
+		int rowNumber = jdbc.update("DELETE FROM m_user WHERE user_id = ?",userId);
+
+		return rowNumber;
 	}
 
 	@Override
 	public void userCsvOut() throws DataAccessException {
-		// TODO 自動生成されたメソッド・スタブ
 
+		String sql = "SELECT * FROM m_user";
+
+		UserRowCallbackHandler handler = new UserRowCallbackHandler();
+
+		jdbc.query(sql, handler);
 	}
 }
