@@ -67,10 +67,7 @@ public class HomeController {
 		return "login/homeLayout";
 	}
 
-	@GetMapping("/userList/csv")
-	public String getCsv(Model model) {
-		return getUserList(model);
-	}
+
 
 	@GetMapping("/userDetail/{id:.+}")
 	public String getUserDetail(@ModelAttribute SignupForm form, Model model,
@@ -163,6 +160,14 @@ public class HomeController {
 		header.setContentDispositionFormData("filename","sample.csv");
 
 		return new ResponseEntity<>(bytes,header,HttpStatus.OK);
+	}
+
+	@GetMapping("/admin")
+	public String getAdmin(Model model) {
+
+		model.addAttribute("contents","login/admin::admin_contents");
+
+		return "login/homeLayout";
 	}
 
 }

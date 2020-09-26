@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ErrorAspect {
 
-	@AfterThrowing(value="execution(**..*..*(..))"
+	@AfterThrowing(value="execution(* *..*..*(..))"
 			+ " && (bean(*Controller) || bean(*Service) || bean(*Repository))",throwing="ex")
 	public void throwingNull(DataAccessException ex	) {
 

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domain.model.User;
@@ -18,6 +19,9 @@ public class UserDaoJdbcImpl implements UserDao {
 
 	@Autowired
 	JdbcTemplate jdbc;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@Override
 	public int count() throws DataAccessException{
@@ -31,6 +35,8 @@ public class UserDaoJdbcImpl implements UserDao {
 	@Override
 	public int insertOne(User user) throws DataAccessException {
 
+		String password = passwordEncoder.encode(user.getPassword());
+
 		int rowNumber = jdbc.update("INSERT INTO m_user(user_id,"
 				+ " password,"
 				+ " user_name,"
@@ -40,7 +46,7 @@ public class UserDaoJdbcImpl implements UserDao {
 				+ " role)"
 				+ " VALUES(?,?,?,?,?,?,?)"
 				,user.getUserId()
-				,user.getPassword()
+				,password
 				,user.getUserName()
 				,user.getBirthday()
 				,user.getAge()
@@ -103,15 +109,17 @@ public class UserDaoJdbcImpl implements UserDao {
 	@Override
 	public int updateOne(User user) throws DataAccessException {
 
+		String password = passwordEncoder.encode(user.getPassword());
+
 		int rowNumber = jdbc.update("UPDATE M_USER"
 				+ " SET"
-				+ " password = ?"
-				+ " user_name = ?"
-				+ " birthday = ?"
-				+ " age = ?"
-				+ " marriag = ?"
+				+ " password = ?,"
+				+ " user_name = ?,"
+				+ " birthday = ?,"
+				+ " age = ?,"
+				+ " marriage = ?"
 				+ " WHERE user_id = ?"
-				,user.getPassword()
+				,password
 				,user.getUserName()
 				,user.getBirthday()
 				,user.getAge()
